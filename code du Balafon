@@ -1,0 +1,137 @@
+import FreeCAD as App
+import Part
+
+doc = App.newDocument()
+
+# Créer la boîte de résonance du balafon
+box = Part.makeBox(200, 100, 20)
+box.translate(App.Vector(0, 0, 10))
+doc.addObject("Part::Feature", "Box").Shape = box
+
+# Créer les tiges de support du balafon
+rod_radius = 5
+rod_spacing = 20
+rod_count = 21
+
+for i in range(rod_count):
+    x = (i - rod_count / 2) * rod_spacing
+    rod = Part.makeCylinder(rod_radius, 200)
+    rod.translate(App.Vector(x, 0, 20))
+    doc.addObject("Part::Feature", "Rod{}".format(i+1)).Shape = rod
+
+# Dessiner les lames de bois du balafon
+wood_length = 180
+wood_width = 20
+wood_thickness = 5
+wood_spacing = 10
+wood_count = 21
+
+for i in range(wood_count):
+    x = (i - wood_count / 2) * wood_spacing
+    wood = Part.makeBox(wood_length, wood_width, wood_thickness)
+    wood.translate(App.Vector(x, 0, 30))
+    doc.addObject("Part::Feature", "Wood{}".format(i+1)).Shape = wood
+
+# Ajouter des cordes entre les lames de bois
+rope_radius = 2
+rope_spacing = 10
+
+for i in range(wood_count - 1):
+    x1 = (i - wood_count / 2) * wood_spacing
+    x2 = ((i+1) - wood_count / 2) * wood_spacing
+    z = 30 + wood_thickness / 2
+    rope = Part.makeCylinder(rope_radius, (x2 - x1), App.Vector(x1, 0, z), App.Vector(x2, 0, z))
+    doc.addObject("Part::Feature", "Rope{}".format(i+1)).Shape = rope
+
+# Ajouter des textures et des couleurs
+box.ViewObject.Texture = "path/to/wood_texture.jpg"
+box.ViewObject.DiffuseColor = (0.6, 0.3, 0.1)
+
+for i in range(wood_count):
+    wood = doc.getObject("Wood{}".format(i+1))
+    wood.ViewObject.Texture = "path/to/wood_texture.jpg"
+    wood.ViewObject.DiffuseColor = (0.6, 0.3, 0.1)
+
+# Ajouter des étiquettes pour les notes
+note_spacing = 10
+note_offset = 5
+
+for i in range(wood_count):
+    x = (i - wood_count / 2) * wood_spacing
+    y = wood_width / 2 + note_offsetimport FreeCAD as App
+import Part
+
+doc = App.newDocument()
+
+# Créer la boîte de résonance du balafon
+box = Part.makeBox(200, 100, 20)
+box.translate(App.Vector(0, 0, 10))
+doc.addObject("Part::Feature", "Box").Shape = box
+
+# Créer les tiges de support du balafon
+rod_radius = 5
+rod_spacing = 20
+rod_count = 21
+
+for i in range(rod_count):
+    x = (i - rod_count / 2) * rod_spacing
+    rod = Part.makeCylinder(rod_radius, 200)
+    rod.translate(App.Vector(x, 0, 20))
+    doc.addObject("Part::Feature", "Rod{}".format(i+1)).Shape = rod
+
+# Dessiner les lames de bois du balafon
+wood_length = 180
+wood_width = 20
+wood_thickness = 5
+wood_spacing = 10
+wood_count = 21
+
+for i in range(wood_count):
+    x = (i - wood_count / 2) * wood_spacing
+    wood = Part.makeBox(wood_length, wood_width, wood_thickness)
+    wood.translate(App.Vector(x, 0, 30))
+    doc.addObject("Part::Feature", "Wood{}".format(i+1)).Shape = wood
+
+# Ajouter des cordes entre les lames de bois
+rope_radius = 2
+rope_spacing = 10
+
+for i in range(wood_count - 1):
+    x1 = (i - wood_count / 2) * wood_spacing
+    x2 = ((i+1) - wood_count / 2) * wood_spacing
+    z = 30 + wood_thickness / 2
+    rope = Part.makeCylinder(rope_radius, (x2 - x1), App.Vector(x1, 0, z), App.Vector(x2, 0, z))
+    doc.addObject("Part::Feature", "Rope{}".format(i+1)).Shape = rope
+
+# Ajouter des textures et des couleurs
+box.ViewObject.Texture = "path/to/wood_texture.jpg"
+box.ViewObject.DiffuseColor = (0.6, 0.3, 0.1)
+
+for i in range(wood_count):
+    wood = doc.getObject("Wood{}".format(i+1))
+    wood.ViewObject.Texture = "path/to/wood_texture.jpg"
+    wood.ViewObject.DiffuseColor = (0.6, 0.3, 0.1)
+
+# Ajouter des étiquettes pour les notes
+note_spacing = 10
+note_offset = 5
+
+for i in range(wood_count):
+    x = (i - wood_count / 2) * wood_spacing
+    y = wood_width / 2 + note_offset
+    z = 30 + wood_thickness + note_offset
+    label = App.ActiveDocument.addObject("App::AnnotationLabel")
+    label.LabelText = "Note {}".format(i+1)
+    label.X = x
+    label.Y = y
+    label.Z = z
+
+doc.recompute()
+    z = 30 + wood_thickness + note_offset
+    label = App.ActiveDocument.addObject("App::AnnotationLabel")
+    label.LabelText = "Note {}".format(i+1)
+    label.X = x
+    label.Y = y
+    label.Z = z
+
+doc.recompute()
